@@ -1,0 +1,32 @@
+.container{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+}
+.react-query{
+    display: flex;
+    color: 	#3c3c3c;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+.header{
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+    background-color: 	#f8ed62;
+    margin-bottom: 30px;
+}
+
+.logo{
+    width: 50px;
+}
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
