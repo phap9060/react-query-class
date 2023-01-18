@@ -6,7 +6,6 @@ import "./style.css";
 type CardProps = {
   name: string;
   img: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   id: number;
 };
 

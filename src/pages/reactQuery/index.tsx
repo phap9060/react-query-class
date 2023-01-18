@@ -4,14 +4,35 @@ import { updateName } from "../../services/changeName";
 import queryImage from "../../assets/query.svg";
 import { Card } from "../../components/card";
 import "./style.css";
+import { useEffect, useState } from "react";
 
 export const Query = () => {
   const image = queryImage;
-  const { data, status } = useQuery("randomNames", randomNames);
+
+  const [personagens, setPersonagens] = useState<any[]>([]);
+  const [load, setLoad] = useState(false);
+  const [error, setError] = useState(false);
+
+  const catchPersonagens = async () => {
+    try {
+      setLoad(true);
+      const result = await randomNames();
+
+      setPersonagens(result.data);
+    } catch {
+      setError(true);
+    } finally {
+      setLoad(false);
+    }
+  };
 
   const Names = (personagens: any) => {
-    return personagens.data.map((personagem: any) => <Card id={personagem.id} onClick={() => console.log("oi")} img={personagem.avatar} name={personagem.name} key={personagem.id} />);
+    return personagens?.map((personagem: any) => <Card id={personagem.id} img={personagem.avatar} name={personagem.name} key={personagem.id} />);
   };
+
+  useEffect(() => {
+    catchPersonagens();
+  }, []);
 
   return (
     <div className="container">
@@ -21,9 +42,9 @@ export const Query = () => {
       </div>
 
       <div className="body">
-        {status === "loading" && <div>Loading...</div>}
-        {status === "error" && <div>Error fetching characters</div>}
-        {status === "success" && <div>{Names(data)}</div>}
+        {load === true && <div>Loading...</div>}
+        {error === true && <div>Error fetching characters</div>}
+        {personagens.length > 0 && <div>{Names(personagens)}</div>}
       </div>
     </div>
   );
