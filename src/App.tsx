@@ -2,7 +2,7 @@ import { Comum } from "./pages/comum";
 import { Query } from "./pages/reactQuery";
 
 function App() {
-  return <Comum />;
+  return <Query />;
 }
 
 export default App;

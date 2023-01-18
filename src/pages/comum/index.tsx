@@ -1,4 +1,4 @@
-import { personagensRickMorty } from "../../services/getCharacters";
+import { randomNames } from "../../services/getCharacters";
 import queryImage from "../../assets/query.svg";
 import { Card } from "../../components/card";
 import "./style.css";
@@ -12,12 +12,12 @@ export const Comum = () => {
   const catchPersonagens = async () => {
     try {
       setLoad(true);
-      const result = await personagensRickMorty();
-      console.log(result.data);
+      const result = await randomNames();
       setPersonagens(result.data.results);
-      setLoad(false);
     } catch {
       setErro(true);
+    } finally {
+      setLoad(false);
     }
   };
 
@@ -26,9 +26,7 @@ export const Comum = () => {
   }, []);
 
   const rickMortyCard = () => {
-    return personagens.map((personagem: any) => (
-      <Card name={personagem.name} />
-    ));
+    return personagens.map((personagem: any) => <Card id={personagem.id} onClick={() => console.log("oi")} img={personagem.avatar} name={personagem.name} />);
   };
 
   return (
@@ -38,9 +36,7 @@ export const Comum = () => {
         <img className="logo" src={queryImage} />
       </div>
 
-      <div className="body">
-        {load ? <div>Loading...</div> : <div>{rickMortyCard()}</div>}
-      </div>
+      <div className="body">{load ? <div>Loading...</div> : <div>{rickMortyCard()}</div>}</div>
     </div>
   );
 };
